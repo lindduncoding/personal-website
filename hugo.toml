@@ -1,7 +1,7 @@
 baseURL = 'http://fidelyafr.fyi'
 locale = 'en-us'
 title = 'the fidelyafr experience'
-theme = 'risotto'
+theme = 'risotto-change'
 author = "Fidelya Fredelina"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
