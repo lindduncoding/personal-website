@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>HackTheBox Business CTF Cyber Skills Benchmart 2025: Operation Blackout Write Up &ndash; the fidelyafr experience</title>
+<meta name="description" content="Woman in IT security or whatever from Indonesia">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<link rel="stylesheet" href="/css/bundle.min.40b67cb5d067799ba5117e780a5a2f4b2d93473817993ff4b6050f6b5580bf42.css" integrity="sha256-QLZ8tdBneZulEX54ClovSy2TRzgXmT/0tgUPa1WAv0I=">
+
+
+<link rel="stylesheet" href="/css/palettes/base16-dark.min.21f96477cbbfc39381b2d47b7e5e40f99f59746f3fbea00ed13745591312f528.css" integrity="sha256-Iflkd8u/w5OBstR7fl5A&#43;Z9ZdG8/vqAO0TdFWRMS9Sg=">
+
+
+
+
+<link rel="stylesheet" href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="HackTheBox Business CTF Cyber Skills Benchmart 2025: Operation Blackout Write Up &ndash; the fidelyafr experience" />
+<meta property="og:url" content="http://localhost:1313/ctfs/htb_business_2025/" />
+
+  
+    <meta property="og:description" content="Woman in IT security or whatever from Indonesia"/> 
+  
+
+<meta property="og:locale" content="en-us" />
+<meta property="og:image" content="http://localhost:1313/images/me.png" />
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">the fidelyafr experience</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="http://localhost:1313/about/" title="">About</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="http://localhost:1313/ctfs/" title="Ctfs">Ctfs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>HackTheBox Business CTF Cyber Skills Benchmart 2025: Operation Blackout Write Up</h1>
+    </header>
+    <div class="content__body">
+        <h2 id="cloud">Cloud</h2>
+<h3 id="easy-vault">[Easy] Vault</h3>
+<p>Vault is a vulnerable S3 bucket challenge with a twist. We&rsquo;re given a static website hosted on S3 with a few public files that can be downloaded.</p>
+<p><img src="./cyber-benchmark-images/image-1.png" alt="image"></p>
+<p>If we try to download one of the files, we can see that it gives or responds to us a link to another S3 bucket specifically used to store files.</p>
+<p><img src="./cyber-benchmark-images/image-2.png" alt="image"></p>
+<p>Upon further inspection using the <code>aws cli</code> client, we&rsquo;ve found the complete directory of this <code>volnaya-vault</code> bucket. It has public and private subfolders.</p>
+<p><img src="./cyber-benchmark-images/image-3.png" alt="image"></p>
+<p>But if we try to download (a.k.a copy the file to our local machine) the files using the copy command like we usually would do, we&rsquo;ll get a 403 Forbidden error. So how can the static website download the file we requested for us before?</p>
+<p><img src="./cyber-benchmark-images/image-4.png" alt="image"></p>
+<p>If we trace the request made by the static web when we clicked download, rather than making a direct connection to the vault S3 bucket, it calls on an API endpoint <code>/api/download</code>. It made a POST request with the body specifying which file we want to request from the vault bucket.</p>
+<p><img src="./cyber-benchmark-images/image-5.png" alt="image"> <img src="./cyber-benchmark-images/image-6.png" alt="image"></p>
+<p>Using curl to test this endpoint, we get the following respond, the same one we got from interacting with the static website.</p>
+<p><img src="./cyber-benchmark-images/image-7.png" alt="image"></p>
+<p>Since we have direct control of which file we want to request through the POST request body, can we force it to traverse to the private subfolder instead? Turns out you can! And we&rsquo;ll get a valid download link for one of the private files which has our flag.</p>
+<p><img src="./cyber-benchmark-images/image-8.png" alt="image"></p>
+<p><img src="./cyber-benchmark-images/image-9.png" alt="image"></p>
+<h3 id="medium-ebs">[Medium] EBS</h3>
+<p>EBS is a vulnerable AWS Cognito default sign up web app. To access the Emergency Broadcast System, we have to sign in first using AWS Cognito. Inspecting the Network tab to see the requests made by the web app will reveal a cognito signup link with a lot of restrictions.</p>
+<p><img src="./cyber-benchmark-images/image-10.png" alt="image"></p>
+<p>The link exposes the identity pool but it also gives us a scope for our ID so when we do log in with this account and retrieve our AWS key and secret, there&rsquo;s not much we can do.</p>
+<p><img src="./cyber-benchmark-images/image-11.png" alt="image"></p>
+<p>However, I found this step to be necessary because looking at the Network tab again, we can see an interesting <code>config.json</code> file being retrieved that exposes even more information about this Cognito deployment. This file is interesting because these are the needed information to exploit the default sign up vulnerability, where you are allowed to <em>bypass</em> the restrictions put by the EBS web app by <em>simply signing up directly to the Cognito deployment</em>. This exploit requires the client ID, identity pool, identity pool ID (to get the AWS credentials), and the region (VERY important!)</p>
+<p><img src="./cyber-benchmark-images/image-12.png" alt="image"></p>
+<p>I use <a href="https://github.com/padok-team/cognito-scanner">cognito-scanner</a> to do the default signup exploit by giving the parameters I mentioned before. This GitHub project gives more information and context about the 3 parameters needed for this exploit to work. The result is a temporary AWS credential that has more privilege than the one we made through the &ldquo;normal sign up process&rdquo;.</p>
+<p><img src="./cyber-benchmark-images/image-13.png" alt="image"></p>
+<p>After saving the credentials to a new profile on my aws configuration file, I run <a href="https://github.com/andresriancho/enumerate-iam">enumerate-iam</a> to enumerate for potential sensitive AWS services tied to this privileged role. And I happened to find that the role has permissions to list and read Dynamo DB tables and all of their contents!</p>
+<p><img src="./cyber-benchmark-images/image-14.png" alt="image"></p>
+<p>Found the flag that way.</p>
+<p><img src="./cyber-benchmark-images/image-15.png" alt="image"></p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    <img class="about__logo" src="http://localhost:1313/images/me.png" alt="Logo">
+<h1 class="about__title">fidelyafr</h1>
+<p class="about__description">Woman in IT security or whatever from Indonesia</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/lindduncoding" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:fidelyafr@proton.me" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://orcid.org/0009-0008-8087-6200" rel="me" aria-label="ORCID" title="ORCID"><i class="ai ai-orcid" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            By Fidelya Fredelina, 
+            2025-05-24
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright"></p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

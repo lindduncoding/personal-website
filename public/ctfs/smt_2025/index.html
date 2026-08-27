@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>SMT Program 2025: Various Write Up &ndash; the fidelyafr experience</title>
+<meta name="description" content="Woman in IT security or whatever from Indonesia">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<link rel="stylesheet" href="/css/bundle.min.40b67cb5d067799ba5117e780a5a2f4b2d93473817993ff4b6050f6b5580bf42.css" integrity="sha256-QLZ8tdBneZulEX54ClovSy2TRzgXmT/0tgUPa1WAv0I=">
+
+
+<link rel="stylesheet" href="/css/palettes/base16-dark.min.21f96477cbbfc39381b2d47b7e5e40f99f59746f3fbea00ed13745591312f528.css" integrity="sha256-Iflkd8u/w5OBstR7fl5A&#43;Z9ZdG8/vqAO0TdFWRMS9Sg=">
+
+
+
+
+<link rel="stylesheet" href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU=">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="SMT Program 2025: Various Write Up &ndash; the fidelyafr experience" />
+<meta property="og:url" content="http://localhost:1313/ctfs/smt_2025/" />
+
+  
+    <meta property="og:description" content="Woman in IT security or whatever from Indonesia"/> 
+  
+
+<meta property="og:locale" content="en-us" />
+<meta property="og:image" content="http://localhost:1313/images/me.png" />
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">the fidelyafr experience</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="http://localhost:1313/about/" title="">About</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="http://localhost:1313/ctfs/" title="Ctfs">Ctfs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>SMT Program 2025: Various Write Up</h1>
+    </header>
+    <div class="content__body">
+        <p>I have so many things I want to say about this program and how it affected me down the line but I want to keep this section professional, so here are the write ups:</p>
+<h1 id="malware">Malware</h1>
+<h2 id="static">Static</h2>
+<p>Description</p>
+<pre tabindex="0"><code>Before you start analyzing a malware file, it is generally a good practice to take its hash and search it on VirusTotal to see if others have analyzed the same file before. For this challenge, we give you this SHA256 hash: `556700ac50ffa845e5de853498242ee5abb288eb5b8ae1ae12bfdb5746e3b7b1`.
+
+Answer the questions at `nc 52.77.77.117 10031`
+</code></pre><p>This is an easy/baby challenge to introduce you about how to use VirusTotal as a first stop for malware analysis. Visiting VirusTotal to look for the hash of the file will return the ILOVEYOU worm report.</p>
+<p>Connecting to the IP address, you will be facing a usual forensics type of challenge where you need to answer multiple questions to get the flag.</p>
+<pre tabindex="0"><code>fred@fedora:~$ nc 52.77.77.117 10031
+===================
+  static analysis  
+===================
+
+1. What type of malware is it mainly attributed as? (e.g. trojan)
+&gt;&gt;&gt; worm
+Correct! Next...
+
+2. What is the file type of the malware? (e.g. apk)
+&gt;&gt;&gt; vba
+Correct! Next...
+
+3. When is the first time the malware was submitted to VirusTotal? (e.g. 2020-12-31)
+&gt;&gt;&gt; 2016-06-11
+Correct! Next...
+
+4. According to the &#34;behavior&#34; section, the malware was executed using a Windows executable. What is the name of the executable? (e.g. powershell.exe)
+&gt;&gt;&gt; wscript.exe
+Correct! Next...
+
+Congrats! 4 out of 4 answers correct!
+
+Flag: SMT2025{us3_v1rus_t0t4l_4_1niti4l_4nalys1s}
+</code></pre><h2 id="macro-1">Macro 1</h2>
+<p>Description</p>
+<pre tabindex="0"><code>Why does the file extension ends in `m`? I thought it&#39;s supposed to be `xlsx`?
+
+ZIP file password: SMT2025
+</code></pre><p>The ZIP file contains an Excel file that has Macro embedded in it. You don&rsquo;t need Microsoft Office to open the file or the macro. This is me showing the macro file to analyze using LibreOffice:</p>
+<p><img src="./smt-images/macro.png" alt="macro"></p>
+<p>Going through the macro will return this flag:</p>
+<pre tabindex="0"><code>Rem Attribute VBA_ModuleType=VBADocumentModule
+Option VBASupport 1
+Private Sub Workbook_Open()
+    Dim secretMessage As String
+    secretMessage = &#34;SMT2025{m4cr0s_4r3_c00l}&#34;
+    MsgBox &#34;You&#39;ve been hacked&#34;
+End Sub
+</code></pre><p>You can also use olevba to analyze the macro.</p>
+<h2 id="macro-2">Macro 2</h2>
+<p>Description</p>
+<pre tabindex="0"><code>Okay, the last macro was nothing. This time, I&#39;ve devised a more complex one! Only the computer can understand it!
+
+ZIP file password: SMT2025
+</code></pre><p>We are given another Excel file with macros embedded as well. However, this time the macro file is more complicated and requires simple reverse engineering. The interesting macro looks like this:</p>
+<pre tabindex="0"><code>Rem Attribute VBA_ModuleType=VBADocumentModule
+Option VBASupport 1
+Private Declare PtrSafe Function CreateThread Lib &#34;kernel32&#34; (ByVal SecurityAttributes As Long, ByVal StackSize As Long, ByVal StartFunction As LongPtr, ThreadParameter As LongPtr, ByVal CreateFlags As Long, ByRef ThreadId As Long) As LongPtr
+Private Declare PtrSafe Function VirtualAlloc Lib &#34;kernel32&#34; (ByVal lpAddress As LongPtr, ByVal dwSize As Long, ByVal flAllocationType As Long, ByVal flProtect As Long) As LongPtr
+Private Declare PtrSafe Function RtlMoveMemory Lib &#34;kernel32&#34; (ByVal lDestination As LongPtr, ByRef sSource As Any, ByVal lLength As Long) As LongPtr
+Private Declare PtrSafe Function WaitForSingleObject Lib &#34;kernel32&#34; (ByVal hHandle As LongPtr, ByVal dwMilliseconds As Long) As Long
+Private Declare PtrSafe Function GetExitCodeThread Lib &#34;kernel32&#34; (ByVal hThread As LongPtr, lpExitCode As Long) As Long
+
+Sub FlagChecker()
+    Dim shellcode As Variant
+    Dim userInput As String
+    Dim addrShellcode As LongPtr
+    Dim addrInput As LongPtr
+    Dim counter As Long
+    Dim data As Long
+    Dim res As Long
+    Dim ThreadId As Long
+    Dim hThread As LongPtr
+    Dim exitCode As Long
+
+    shellcode = Array(49, 192, 128, 57, 83, 117, 110, 128, 121, 1, 77, 117, 104, 128, 121, 2, 84, 117, 98, 128, 121, 3, 50, 117, 92, 128, 121, 4, 48, 117, 86, 128, 121, 5, 50, 117, 80, 128, 121, 6, 53, 117, 74, 128, 121, 7, 123, 117, 68, 128, 121, 8, 121, 117, 62, 128, 121, 9, 48, 117, 56, 128, 121, 10, 117, 117, 50, 128, 121, 11, 95, 117, 44, 128, 121, 12, 103, 117, 38, 128, 121, 13, 48, 117, 32, 128, 121, 14, 116, 117, 26, 128, 121, 15, 95, 117, 20, 128, 121, 16, 109, 117, 14, 128, 121, 17, 51, 117, 8, 128, 121, 18, 125, 117, 2, 176, 1, 195)
+
+    userInput = InputBox(&#34;Welcome! To access the secret, you must enter the flag:&#34;, &#34;Flag Check&#34;)
+
+    addrShellcode = VirtualAlloc(0, UBound(shellcode) + 1, &amp;H3000, &amp;H40)
+
+    For counter = LBound(shellcode) To UBound(shellcode)
+        data = shellcode(counter)
+        RtlMoveMemory ByVal (addrShellcode + counter), data, 1
+    Next counter
+
+    addrInput = VirtualAlloc(0, 19, &amp;H3000, &amp;H40)
+
+    For counter = 0 To Len(userInput) - 1
+        data = Asc(Mid(userInput, counter + 1, 1))
+        RtlMoveMemory ByVal (addrInput + counter), data, 1
+    Next counter
+
+    hThread = CreateThread(0, 0, addrShellcode, addrInput, 0, ThreadId)
+
+    WaitForSingleObject hThread, &amp;HFFFFFFFF
+
+    GetExitCodeThread hThread, exitCode
+
+    If exitCode = 1 Then
+        MsgBox &#34;Correct Flag!&#34;, vbInformation
+    Else
+        MsgBox &#34;Incorrect Flag!&#34;, vbExclamation
+    End If
+End Sub
+
+Private Sub Workbook_Open()
+    FlagChecker
+End Sub
+</code></pre><p>Even without prior knowledge of macro scripting, it&rsquo;s clear that the macro is asking for a flag item to be compared using the hardcoded shellcode. Shellcodes are just raw bytes representation of assembly instructions. So, to know how the flag comparison works, we need to decode the shellcode array into its appropriate assembly representation. Using this python script to make a bin file of the shellcode:</p>
+<pre tabindex="0"><code>bytes_array = [
+    49, 192, 128, 57, 83, 117, 110, 128, 121, 1, 77, 117, 104, 128, 121, 2, 84, 117, 98, 128, 121, 3, 50, 117, 92, 128, 121, 4, 48, 117, 86, 128, 121, 5, 50, 117, 80, 128, 121, 6, 53, 117, 74, 128, 121, 7, 123, 117, 68, 128, 121, 8, 121, 117, 62, 128, 121, 9, 48, 117, 56, 128, 121, 10, 117, 117, 50, 128, 121, 11, 95, 117, 44, 128, 121, 12, 103, 117, 38, 128, 121, 13, 48, 117, 32, 128, 121, 14, 116, 117, 26, 128, 121, 15, 95, 117, 20, 128, 121, 16, 109, 117, 14, 128, 121, 17, 51, 117, 8, 128, 121, 18, 125, 117, 2, 176, 1, 195
+]
+
+
+with open(&#34;shellcode.bin&#34;, &#34;wb&#34;) as f:
+    f.write(bytes(bytes_array))
+</code></pre><p>And using <code>ndisasm</code> to disassemble the binary will return:</p>
+<pre tabindex="0"><code>00000000  31C0              xor eax,eax
+00000002  803953            cmp byte [ecx],0x53
+00000005  756E              jnz 0x75
+00000007  8079014D          cmp byte [ecx+0x1],0x4d
+0000000B  7568              jnz 0x75
+0000000D  80790254          cmp byte [ecx+0x2],0x54
+00000011  7562              jnz 0x75
+00000013  80790332          cmp byte [ecx+0x3],0x32
+00000017  755C              jnz 0x75
+00000019  80790430          cmp byte [ecx+0x4],0x30
+0000001D  7556              jnz 0x75
+0000001F  80790532          cmp byte [ecx+0x5],0x32
+00000023  7550              jnz 0x75
+00000025  80790635          cmp byte [ecx+0x6],0x35
+00000029  754A              jnz 0x75
+0000002B  8079077B          cmp byte [ecx+0x7],0x7b
+0000002F  7544              jnz 0x75
+00000031  80790879          cmp byte [ecx+0x8],0x79
+00000035  753E              jnz 0x75
+00000037  80790930          cmp byte [ecx+0x9],0x30
+0000003B  7538              jnz 0x75
+0000003D  80790A75          cmp byte [ecx+0xa],0x75
+00000041  7532              jnz 0x75
+00000043  80790B5F          cmp byte [ecx+0xb],0x5f
+00000047  752C              jnz 0x75
+00000049  80790C67          cmp byte [ecx+0xc],0x67
+0000004D  7526              jnz 0x75
+0000004F  80790D30          cmp byte [ecx+0xd],0x30
+00000053  7520              jnz 0x75
+00000055  80790E74          cmp byte [ecx+0xe],0x74
+00000059  751A              jnz 0x75
+0000005B  80790F5F          cmp byte [ecx+0xf],0x5f
+0000005F  7514              jnz 0x75
+00000061  8079106D          cmp byte [ecx+0x10],0x6d
+00000065  750E              jnz 0x75
+00000067  80791133          cmp byte [ecx+0x11],0x33
+0000006B  7508              jnz 0x75
+0000006D  8079127D          cmp byte [ecx+0x12],0x7d
+00000071  7502              jnz 0x75
+00000073  B001              mov al,0x1
+00000075  C3                ret
+</code></pre><p>The assembly uses a lot of <code>compare</code> instructions to compare the input from the user with the actual flag. Decoding the bytes that is used to compare the input will return the flag:</p>
+<pre tabindex="0"><code>SMT2025{y0u_g0t_m3}
+</code></pre><h2 id="strange-pdf">Strange PDF</h2>
+<p>Description</p>
+<pre tabindex="0"><code>I visited a URL to get free ROBUX, but it gave me a PDF instead? Now I&#39;m afraid because when I open the PDF on a browser, it says &#34;&#34;You are hacked!&#34;&#34;.
+
+Note: the PDF file is harmless and safe to open.
+</code></pre><p>Was given a pcap file where I could extract a suspicious pdf:</p>
+<p><img src="./smt-images/export-pdf.png" alt="pdf"></p>
+<p>The challenge description (and hint) hinted that the pdf file contain a Javascript code. Running it on a browser (not recommended) will give you the alert &ldquo;you are hacked&rdquo;, just like what&rsquo;s said in the description. Using a safer and more effective tool like pdf-parser, we can detect the Javascript object:</p>
+<pre tabindex="0"><code>fred@fedora:~$ pdf-parser --search  freeR0buxx.pdf 
+This program has not been tested with this version of Python (3.13.3)
+Should you encounter problems, please use Python version 3.12.2
+obj 1 0
+ Type: /Catalog
+ Referencing: 3 0 R, 3 0 R, 4 0 R, 5 0 R
+
+  &lt;&lt;
+    /Lang (en_GB)
+    /MarkInfo
+      &lt;&lt;
+        /Marked true
+        /Type /MarkInfo
+      &gt;&gt;
+    /Names
+      &lt;&lt;
+        /JavaScript
+          &lt;&lt;
+            /Names
+              &lt;&lt;
+                /JS 3 0 R
+                /S /JavaScript
+              &gt;&gt;
+            ]
+          &gt;&gt;
+      &gt;&gt;
+    /OpenAction
+      &lt;&lt;
+        /JS 3 0 R
+        /S /JavaScript
+      &gt;&gt;
+    /Pages 4 0 R
+    /StructTreeRoot 5 0 R
+    /Type /Catalog
+    /ViewerPreferences
+      &lt;&lt;
+        /DisplayDocTitle true
+        /Type /ViewerPreferences
+      &gt;&gt;
+  &gt;&gt;
+</code></pre><p>There is one Javascript object (JS 3 0 R) that can be analyzed further with:</p>
+<pre tabindex="0"><code>fred@fedora:~$ pdf-parser freeR0buxx.pdf --object 3 --raw
+This program has not been tested with this version of Python (3.13.3)
+Should you encounter problems, please use Python version 3.12.2
+obj 3 0
+ Type: 
+ Referencing: 
+ Contains stream
+
+  &lt;&lt;
+    /Length 715
+    /Filter /FlateDecode
+  &gt;&gt;
+</code></pre><p>Seems like the object is filtered/decoded or not in a raw form. So, let&rsquo;s use the &ndash;filter option to analyze it even further:</p>
+<pre tabindex="0"><code> b&#34;const _0x35af3f=_0x38dc;(function(_0x79f814,_0x52d802){const _0x107e33=_0x38dc,_0x40247f=_0x79f814();while(!![]){try{const _0x2c9e4e=-parseInt(_0x107e33(0x1e4))/0x1*(parseInt(_0x107e33(0x1ed))/0x2)+parseInt(_0x107e33(0x1ec))/0x3+parseInt(_0x107e33(0x1eb))/0x4+-parseInt(_0x107e33(0x1f0))/0x5*(parseInt(_0x107e33(0x1e6))/0x6)+-parseInt(_0x107e33(0x1ee))/0x7*(parseInt(_0x107e33(0x1e3))/0x8)+-parseInt(_0x107e33(0x1ef))/0x9*(-parseInt(_0x107e33(0x1ea))/0xa)+-parseInt(_0x107e33(0x1e9))/0xb;if(_0x2c9e4e===_0x52d802)break;else _0x40247f[&#39;push&#39;](_0x40247f[&#39;shift&#39;]());}catch(_0x53d799){_0x40247f[&#39;push&#39;](_0x40247f[&#39;shift&#39;]());}}}(_0x425d,0x282ee),app[_0x35af3f(0x1e5)](_0x35af3f(0x1e2)));const secretCodes=[0x53,0x4c,0x56,0x31,0x34,0x37,0x33,0x7c,0x7a,0x39,0x68,0x7e,0x74,0x52,0x69,0x3f,0x7e,0x22,0x4d,0x61,0x24,0x77,0x7a,0x27,0x60,0x46,0x2e,0x78,0x7f,0x2d,0x6b,0x71,0x54,0x7e,0x16,0x4f,0x11,0x4a,0x79,0x40,0x18,0x47,0x19,0x56];let res_string=&#39;&#39;;function _0x425d(){const _0x5e00bb=[&#39;98WMXaGj&#39;,&#39;14hdAIoV&#39;,&#39;63vplRra&#39;,&#39;7475BnkArh&#39;,&#39;you are hacked lol&#39;,&#39;15352DpCPAf&#39;,&#39;5671bukCjs&#39;,&#39;alert&#39;,&#39;414tTEYYo&#39;,&#39;fromCharCode&#39;,&#39;length&#39;,&#39;2470809jgIBmC&#39;,&#39;274390qpkmeC&#39;,&#39;1097232WLgqcA&#39;,&#39;923100FinnSJ&#39;];_0x425d=function(){return _0x5e00bb;};return _0x425d();}function _0x38dc(_0x4b04be,_0x45a38d){const _0x425d36=_0x425d();return _0x38dc=function(_0x38dcc5,_0x16d34d){_0x38dcc5=_0x38dcc5-0x1e2;let _0x29ff77=_0x425d36[_0x38dcc5];return _0x29ff77;},_0x38dc(_0x4b04be,_0x45a38d);}for(let i=0x0;i&lt;secretCodes[_0x35af3f(0x1e8)];i++){const xored=secretCodes[i]^i,res_char=String[_0x35af3f(0x1e7)](xored);res_string+=res_char;}&#34;
+</code></pre><p>This is definitely an obfuscated Javascript code, using online JS de-obfuscater will return this code:</p>
+<pre tabindex="0"><code>const secretCodes = [0x53, 0x4c, 0x56, 0x31, 0x34, 0x37, 0x33, 0x7c, 0x7a, 0x39, 0x68, 0x7e, 0x74, 0x52, 0x69, 0x3f, 0x7e, 0x22, 0x4d, 0x61, 0x24, 0x77, 0x7a, 0x27, 0x60, 0x46, 0x2e, 0x78, 0x7f, 0x2d, 0x6b, 0x71, 0x54, 0x7e, 0x16, 0x4f, 0x11, 0x4a, 0x79, 0x40, 0x18, 0x47, 0x19, 0x56];
+let res_string = &#39;&#39;;
+for (let i = 0x0; i &lt; secretCodes.length; i++) {
+  const xored = secretCodes[i] ^ i;
+  const res_char = String.fromCharCode(xored);
+  res_string += res_char;
+}
+</code></pre><p>The code turns out to be a mechanism to reveal the secret code (possibly the flag) by using XOR mechanism. I added the console.log() part to print the XOR-ed secret code and running the de-obfuscated code will return the flag:</p>
+<pre tabindex="0"><code>fred@fedora:~/Documents/SMT $ node test.js
+SMT2025{r0bux_g0n3_r0bl0x_4cc0unt_4l5o_g0n3}
+</code></pre><h1 id="crypto">Crypto</h1>
+<h2 id="welcome">welcome</h2>
+<p>Description</p>
+<pre tabindex="0"><code>This message has been... encoded? encrypted? Whatever that is... Anyways, can you read it?
+
+UkxTMjAyNXt2M2tibmwzX3MwX3NnM19icXhvczBfdjBxa2MhfQ==
+</code></pre><p>The double equal signs at the end of the string highly suggest that it&rsquo;s a base64 encoded flag. Decoding the base64 will still return gibberish:</p>
+<pre tabindex="0"><code>RLS2025{v3kbnl3_s0_sg3_bqxos0_v0qkc!}
+</code></pre><p>But we know the flag starts with the usual &lsquo;SMT2025&rsquo; string, so RLS2025 is just a shifted version of the flag (shifted 1 bit to the right). Decrypting that will return:</p>
+<pre tabindex="0"><code>SMT2025{w3lcom3_t0_th3_crypt0_w0rld!}
+</code></pre><h2 id="eaesy">eAESy</h2>
+<p>Description</p>
+<pre tabindex="0"><code>This is a basic implementation of AES. Can you decrypt the message?
+</code></pre><p>The source code given to us is this:</p>
+<pre tabindex="0"><code>import os
+from Crypto.Cipher import AES					# pip install pycryptodome
+from Crypto.Util.Padding import pad, unpad
+
+FLAG = b&#39;SMT2025{REDACTED}&#39;
+key = b&#39;smt_progr4m_2k25&#39;
+
+# Function to encrypt the flag
+def encrypt(msg, key):
+	iv = os.urandom(AES.block_size)
+	cipher = AES.new(key, AES.MODE_CBC, iv)
+	ciphertext = cipher.encrypt(pad(msg, AES.block_size))	# AES block size is 16 bytes
+	return (iv + ciphertext).hex()
+
+# Write the encryption result to flag.enc
+with open(&#34;flag.enc&#34;, &#34;w&#34;) as f:
+	f.write(encrypt(FLAG, key))
+
+# Encrypted FLAG (from flag.enc): 4abd733e0662e1b1aa3d1996f789209b5c9684941f1717d05000e861cab8491bef153fffd9feb7502ba96144d061517a134456204eb06d250f5266e0e9945c76
+</code></pre><p>We have a CBC mode AES encryption mechanism. CBC is a mode in block cipher where the plaintext is divided into an equal sized block, then it&rsquo;ll be encrypted through XOR-ing the output of the last block with the current block&rsquo;s input before the last XOR operation with the actual key. This helps obfuscate patterns in block ciphers so that the encryption process will return random data even if it&rsquo;s encrypted using the same key. When the plaintext can&rsquo;t be neatly divided into the determined block size, padding will be added at the end of the plaintext. Decryption then works the same way but on reverse.</p>
+<p><img src="./smt-images/cbc.png" alt="CBC Mode"></p>
+<p>But what happens to the first block&rsquo;s plaintext? If the encryption and decryption method depends on the previous block, then what will be used to encrypt the first block&rsquo;s plaintext? This is where IV (initialization vector) comes in.</p>
+<p>Therefore, in order to decrypt this flag, we need to reverse the <code>encrypt</code> method into <code>decrypt</code> by supplying the initialization vector. We also need to unpad the encoded flag to get rid of unneeded data at the end of it. But where&rsquo;s the IV? If we look at this line of code:</p>
+<pre tabindex="0"><code>return (iv + ciphertext).hex()
+</code></pre><p>The flag is in hexadecimal encoding where the iv is appended before the ciphertext. Okay, we know where it is, but how big is the size of the IV before it transitions into the actual flag? From this code:</p>
+<pre tabindex="0"><code>iv = os.urandom(AES.block_size)
+</code></pre><p>And by looking at the documentation of the <code>os.urandom</code> functionality:</p>
+<pre tabindex="0"><code>Syntax: os.urandom(size)
+
+Parameter: 
+size: It is the size of string random bytes
+
+Return Value:  This method returns a string which represents random bytes suitable for cryptographic use.
+</code></pre><p>We can conclude that the IV&rsquo;s size is as big as AES&rsquo;s default block size, which is 16 bytes according to the documentation:</p>
+<pre tabindex="0"><code>AES (Advanced Encryption Standard) is a symmetric block cipher standardized by NIST . It has a fixed data block size of 16 bytes. Its keys can be 128, 192, or 256 bits long.
+</code></pre><p>With this, we&rsquo;re ready to construct our decoding script which is:</p>
+<pre tabindex="0"><code>from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+
+key = b&#39;smt_progr4m_2k25&#39;
+
+with open(&#34;flag.enc&#34;, &#34;r&#34;) as f:
+    data = bytes.fromhex(f.read())
+
+iv = data[:16]               # First 16 bytes is the IV
+ciphertext = data[16:]      # The rest is ciphertext
+
+cipher = AES.new(key, AES.MODE_CBC, iv)
+plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size)
+
+print(plaintext.decode())
+
+# output: SMT2025{3ncrypt1on_4nd_d3crypt1on}
+</code></pre><h2 id="rsaaaaaaaaaa">rsaaaaaaaaaa</h2>
+<p>Description</p>
+<pre tabindex="0"><code>In RSA, the security lies on the fact that N is hard to factorize. What if it isn&#39;t?
+</code></pre><p>We&rsquo;re given this output:</p>
+<pre tabindex="0"><code>N = 41874700861388258853489749809278828485531955632713300130620929705146462431987
+e = 65537
+c = 6459193742574944020759123901642766353850952579897308947159707555151928327695
+</code></pre><p>And this script that generates it:</p>
+<pre tabindex="0"><code>from Crypto.Util.number import getPrime, bytes_to_long, long_to_bytes	# pip install pycryptodome
+
+FLAG = b&#34;SMT2025{REDACTED}&#34;
+
+# RSA Parameters
+p = getPrime(128)
+q = getPrime(128) 
+N = p*q
+e = 65537
+phi = (p-1)*(q-1)
+d = pow(e,-1,phi)
+
+# Encrypting the flag
+c = pow(bytes_to_long(FLAG),e,N)
+
+# Print only the public parameters
+print(f&#34;N = {N}&#34;)
+print(f&#34;e = {e}&#34;)
+print(f&#34;c = {c}&#34;)
+</code></pre><p>At first, I thought the problem was e&rsquo;s value being too small but turns out the problem lies on the comically small size of p and q. 128 bits of p and q is apparently too small, and someone probably has tried calling the <code>getPrime() </code> method a lot of times and putting the outputs inside a database. Wait, that&rsquo;s factordb! I used a CLI tool called RsaCtfTool (available on Kali Linux) to automatically find the factors of N and then decrypt the message:</p>
+<pre tabindex="0"><code>(.crypto) 📦[fred@kalilinux rsaaaaaaaaa]$ RsaCtfTool -n 41874700861388258853489749809278828485531955632713300130620929705146462431987 -e 65537 --decrypt 6459193742574944020759123901642766353850952579897308947159707555151928327695
+private argument is not set, the private key will not be displayed, even if recovered.
+[&#39;/tmp/tmp9amk4o0y&#39;]
+
+[*] Testing key /tmp/tmp9amk4o0y.
+attack initialized...
+attack initialized...
+[*] Performing factordb attack on /tmp/tmp9amk4o0y.
+[*] Attack success with factordb method !
+
+Results for /tmp/tmp9amk4o0y:
+
+Decrypted data :
+HEX : 0x0000000000000000534d54323032357b736d346c6c5f7072316d335f6234647d
+INT (big endian) : 2042560714541759777531017945383753117713705496608779822205
+INT (little endian) : 56716152322296766827953118673252260675642938335221680111187167816688116695040
+utf-8 : SMT2025{sm4ll_pr1m3_b4d}
+utf-16 : 䵓㉔㈰笵浳水彬牰洱弳㑢絤
+STR : b&#39;\x00\x00\x00\x00\x00\x00\x00\x00SMT2025{sm4ll_pr1m3_b4d}&#39;
+(.crypto) 📦[fred@kalilinux rsaaaaaaaaa]$ 
+</code></pre><p>TL;DR don&rsquo;t use a comically small prime, someone&rsquo;s probably uploaded that to factordb.</p>
+<h2 id="birthday">birthday</h2>
+<p>Description</p>
+<pre tabindex="0"><code>There are 366 possible birthdays in a year, yet only 23 people are needed for the chance of a shared birthday to exceed 50%.
+
+There are 2^32 possibly generated hash from this hash algorithm, yet only [???] generated hash are needed for the chance of a collision to exceed 50%.
+
+Can you find the collision?
+
+Connect using `nc 52.77.77.117 10041`
+</code></pre><p>This is a challenge to find a hash collision. How do I know this? From the description and also, the source code of the server:</p>
+<pre tabindex="0"><code>#!/usr/bin/env python3
+
+import hashlib
+from secret import FLAG
+
+# Hash algorithm
+# 4-byte / 32-bit hash --&gt; 2^32 possible hash values
+def custom_hash(string):
+    mini_md5 = hashlib.md5(string.encode()).digest()[:4].hex()
+    return mini_md5
+
+# Main code
+
+print(&#34;\033[1mHappy birthday!\033[0m 🥳🎉🎉&#34;)
+print(&#34;If you give me two different strings that have the same hash value, I will give you the \033[1mFLAG\033[0m.&#34;)
+print(&#34;There&#39;s one little catch, however: &#34; + &#39;both strings have to start with \033[1m&#34;SMT&#34;\033[0m :)&#39;)
+
+str1 = input(&#34;String 1: &#34;)
+str2 = input(&#34;String 2: &#34;)
+
+try:
+    if str1 == str2:
+        print(&#34;❌ You have to input two different strings!&#34;)
+
+    else:
+        if str1[:3] == &#34;SMT&#34; and str2[:3] == &#34;SMT&#34;:
+            hash1 = custom_hash(str1)
+            hash2 = custom_hash(str2)
+            print(f&#34;(Hash) String 1: {hash1}&#34;)
+            print(f&#34;(Hash) String 2: {hash2}&#34;)
+            if hash1 == hash2:
+                print(f&#34;✅ Same hash... Congratulations! You deserve a flag: \033[93m{FLAG.decode()}\033[0m&#34;)
+            else:
+                print(f&#34;❌ Different hash... Try again!&#34;)
+        else:
+            print(&#39;❌ Remember, both strings have to start with &#34;SMT&#34;!&#39;)
+
+except Exception as e:
+    print(f&#34;⚠️ Error: {e}&#34;)
+</code></pre><p>We&rsquo;re only given the flag when the server computes the same hash from 2 different inputs with the prefix SMT. But how can we find a hash collision? Aren&rsquo;t commonly used hash algorithms supposed to be resistant against collision attacks?</p>
+<p>Take a look at the custom hash function. It&rsquo;s using md5 (considered obselete now because a collision has happened before) AND it&rsquo;s trimming that to only a 4 byte/32 bits hash function. This might seem like a challenging task, to bruteforce for 2 inputs (with the SMT prefix) that has the same hash. But modern computers can do millions of calulcations in just seconds. This is my bruteforcing script:</p>
+<pre tabindex="0"><code>def custom_hash(s):
+    return hashlib.md5(s.encode()).digest()[:4].hex()
+
+def generate_smt_string(length=8):
+    suffix = &#39;&#39;.join(random.choices(string.ascii_letters + string.digits, k=length))
+    return &#34;SMT&#34; + suffix
+
+def find_collision():
+    seen = {}
+    attempts = 0
+    while True:
+        s = generate_smt_string()
+        h = custom_hash(s)
+        attempts += 1
+
+        if h in seen and seen[h] != s:
+            print(f&#34;Collision found after {attempts} attempts.&#34;)
+            print(f&#34;String 1: {seen[h]}&#34;)
+            print(f&#34;String 2: {s}&#34;)
+            return seen[h], s
+        seen[h] = s
+</code></pre><p>First, we defined the custom hash function. Second, we try to generate a bunch of SMTxxyyzzz strings using a combination of ascii letters, digits, and with length 8 (randomly picked). There&rsquo;s a higher chance of collision happening if we use a mix of letters and digits. The final and most important step is to iterate through the generation process, putting that inside a dictionary, and only stopping when we found a match.</p>
+<p>A match here is described here:</p>
+<pre tabindex="0"><code>if h in seen and seen[h] != s
+</code></pre><p>So, if the computed hash <em>h</em> at increment <em>i</em> has already been inputted inside the dictionary <em>seen</em> but the corresponding input string <em>seen[h]</em> does NOT equal to the currently generated string <em>s</em> at increment <em>i</em> (i hope this makes sense&hellip;), consider that a collision and return both strings.</p>
+<p>Running the script against the server will return this:</p>
+<pre tabindex="0"><code>fred@fedora:~/crypt$ python3 bday.py
+Collision found after 128438 attempts.
+String 1: SMT65mde431
+String 2: SMTEE40wvDL
+📩 Server says:
+ Happy birthday! 🥳🎉🎉
+If you give me two different strings that have the same hash value, I will give you the FLAG.
+There&#39;s one little catch, however: both strings have to start with &#34;SMT&#34; :)
+String 1: 
+🎉 Final response:
+ String 2: (Hash) String 1: 16c13228
+(Hash) String 2: 16c13228
+✅ Same hash... Congratulations! You deserve a flag: SMT2025{saengil_chukha_hamnida}
+</code></pre><p>This script runs almost on a instant for me.</p>
+<h1 id="os">OS</h1>
+<h2 id="out-of-sight">Out of Sight</h2>
+<p>Description:</p>
+<pre tabindex="0"><code>Welcome to our very first OS challenge.
+Somewhere on this system lies a flag... but not everything is visible at first glance.
+
+Can you find it? I know you can, let&#39;s find it!
+Connect here: nc 52.77.77.117 9040
+</code></pre><p>Connecting to the remote address and listing the files return a readme.txt that gives a hint about ls capabilities:</p>
+<pre tabindex="0"><code>fred@fedora:~$ nc 52.77.77.117 9040
+-sh: 0: can&#39;t access tty; job control turned off
+$ ls
+ls
+readme.txt
+$ cat readme.txt
+cat readme.txt
+Nothing interesting here! ls has many options. One of them is worth to try, buddy :)
+$ 
+</code></pre><p>ls does have many options, one of them listing hidden files. I&rsquo;ve used this before many times for my own shenanigans but anyways, doing that will return a list of hidden files:</p>
+<pre tabindex="0"><code>ls -a
+.  ..  .bash_logout  .bashrc  .flag.txt  .profile  readme.txt
+</code></pre><p>Well there you go, the flag is marked as a hidden file. However, you can still print the content of a hidden file using the cat command as always.</p>
+<pre tabindex="0"><code>$ cat .flag.txt
+cat .flag.txt
+SMT2025{hidden_permission_flag}
+</code></pre><h2 id="random-cities">Random Cities</h2>
+<pre tabindex="0"><code>Your objective exists among executables.
+
+Connect here: nc 52.77.77.117 8087
+</code></pre><p>Upon connecting, listing the files of current directory return an executable and some text files.</p>
+<pre tabindex="0"><code>=====================================
+         Welcome to Cities!
+=====================================
+
+Look for the flags through the executables!
+&#39;Be careful who you trust Sergeant&#39; -Ghost
+
+ctf@1fee2ffd73bd:~$ ls
+ls
+README.md  cities  cities.txt  notes.txt
+ctf@1fee2ffd73bd:~$ 
+</code></pre><p>I thought the solution was to run the executable or modifying its permission bit to get the flag I wanted. However, doing both will result in nothing since the binary can&rsquo;t be executed due to some errors, and the regular ctf user doesn&rsquo;t have the rights to grant file permission.</p>
+<p>Unlocking the hint makes the solution obvious, however.</p>
+<pre tabindex="0"><code>This challenge favor fundamental analysis:
+1. Identify the file type
+2. Examine meaningful strings, not just noise
+3. Search smartly, not blindly
+</code></pre><p>Got the flag by using the strings binary to extract the hidden flag inside the binary.</p>
+<pre tabindex="0"><code>ctf@1fee2ffd73bd:~$ strings cities | grep SMT
+strings cities | grep SMT
+SMT2025{congratzzzzzz}
+ctf@1fee2ffd73bd:~$ 
+</code></pre><h2 id="kecleon">Kecleon</h2>
+<pre tabindex="0"><code>It looks like a regular spreadsheet, but can you find what’s hidden beneath the surface?
+
+Remember that Office files aren’t always what they seem. Inspect beyond the cells. Try to peek inside.
+</code></pre><p>Given a suspicious .xlsx file, I didn&rsquo;t know what to do. So I googled something about the .xlsx file format and turns out it&rsquo;s just an archive file containing multiple XML files. Try changing the extension of an .xlsx file to .zip will still make the file valid and you&rsquo;ll be able to extract information from it.</p>
+<p><img src="./smt-images/hidden.png" alt="xlsx"></p>
+<p>Inside the directory are various XML files, and inspecting one of them will reveal the flag.</p>
+<pre tabindex="0"><code>.
+├── Hidden
+│   ├── [Content_Types].xml
+│   ├── docProps
+│   │   ├── app.xml
+│   │   └── core.xml
+│   ├── _rels
+│   └── xl
+│       ├── printerSettings
+│       │   └── printerSettings1.bin
+│       ├── _rels
+│       │   └── workbook.xml.rels
+│       ├── sharedStrings.xml
+│       ├── styles.xml
+│       ├── theme
+│       │   └── theme1.xml
+│       ├── workbook.xml
+│       └── worksheets
+│           ├── _rels
+│           │   └── sheet1.xml.rels
+│           └── sheet1.xml
+</code></pre><p>Content of sharedStrings.xml:</p>
+<pre tabindex="0"><code>&lt;si&gt;
+&lt;t&gt;One-hour drive = 10 km + 50 patience points.&lt;/t&gt;
+&lt;/si&gt;
+&lt;si&gt;
+&lt;t&gt;Online Shopping&lt;/t&gt;
+&lt;/si&gt;
+&lt;si&gt;
+&lt;t&gt;&#34;Cuma lihat-lihat&#34; ends in checkout.&lt;/t&gt;
+&lt;/si&gt;
+&lt;si&gt;
+&lt;t&gt;Public Holidays&lt;/t&gt;
+&lt;/si&gt;
+&lt;si&gt;
+&lt;t&gt;1 real holiday + 3 &#34;hari kejepit nasional.&#34;&lt;/t&gt;
+&lt;/si&gt;
+&lt;/sst&gt;
+&lt;!--  SMT2025{could_be_anywhere_so_beware}  --&gt;
+</code></pre><p>Alternatively, you can use grep with the -r option to find the SMT pattern in the current directory (.) or other directories. The sharedStrings.xml is a structure to contain all string data of the Open Office format, so it&rsquo;s often used to hide data.</p>
+<h2 id="scheduler-shenanigans">Scheduler Shenanigans</h2>
+<p>Description:</p>
+<pre tabindex="0"><code>You&#39;ve entered a compromised Linux box.
+Something’s ticking every minute — and it’s not a clock. The adversary might drop something inside, something time-sensitive, and you need to inspect it.
+Ironically, its familiarity is what makes it stealthy. 
+
+Find the flag before it resets!!!
+Connect here: nc 52.77.77.117 9000
+</code></pre><p>Trying to inspect the shenanigans return something like this:</p>
+<pre tabindex="0"><code>fred@fedora:~$ nc 52.77.77.117 9000
+====================================
+ Welcome to Scheduler Shenanigans!
+====================================
+
+Someone&#39;s been here before you...
+A scheduler is running in the shadows.
+
+Can you catch the beacon before it&#39;s gone?
+
+Good luck, hacker!
+
+14
+ctfuser@9a07c6f2347b:/$ ls
+ls
+banner.txt  dev            etc       lib    libx32  opt   run   sys  var
+bin         dropper.sh     flag.txt  lib32  media   proc  sbin  tmp
+boot        entrypoint.sh  home      lib64  mnt     root  srv   usr
+ctfuser@9a07c6f2347b:/$ cat flag.txt
+cat flag.txt
+cat: flag.txt: Permission denied
+ctfuser@9a07c6f2347b:/$ cat dropper.sh
+cat dropper.sh
+#!/bin/bash
+cp /flag.txt /tmp/flag
+chmod 644 /tmp/flag
+chown ctfuser:ctfuser /tmp/flag
+sleep 10
+rm /tmp/flag
+ctfuser@9a07c6f2347b:/$
+</code></pre><p>Seems like the dropper.sh is a script used to automate copying the flag.txt file to the tmp folder where the ctf user has access to read and write the file. However, it only stays there for only 10 seconds. Turns out the dropper command is scheduled to run every minute using crontab.</p>
+<pre tabindex="0"><code>ctfuser@9a07c6f2347b:/$ cat /etc/crontab
+cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don&#39;t have to run the `crontab&#39;
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+# You can also override PATH, but by default, newer versions inherit it from the environment
+#PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *	* * *	root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+#
+* * * * * root curl -s http://localhost:8000/dropper.sh | bash
+</code></pre><p>Essentially what happened is the flag is only available for 10 seconds every minute. I think I got lucky first try because I get to cat the flag once and then when I try to recreate the solution to write this WU it doesn&rsquo;t work&hellip; However, there&rsquo;s an automation command to get the flag as soon as it&rsquo;s available:</p>
+<pre tabindex="0"><code>ctfuser@9a07c6f2347b:/$ while true; do cat /tmp/flag 2&gt;/dev/null &amp;&amp; break; sleep 1; done
+&lt;o cat /tmp/flag 2&gt;/dev/null &amp;&amp; break; sleep 1; done
+SMT2025{automated_persistence_daemon}
+ctfuser@9a07c6f2347b:/$ 
+</code></pre><pre tabindex="0"><code>while true {
+	do cat /tmp/flag 2&gt;/dev/null # redirect error to dev/null
+	break # when the above command is successful, break out of the loop
+	sleep 1 # wait for one second before retrying
+}
+</code></pre><h1 id="osint">OSINT</h1>
+<h2 id="place">Place</h2>
+<p>Description</p>
+<pre tabindex="0"><code>During a trip I visited a small but lovely European town. What is the name of the town?
+
+Format: town name, all lowercase, wrapped in SMT2025{ ... }
+Example: SMT2025{middlesbrough}
+</code></pre><p><img src="./smt-images/place.png" alt="place"></p>
+<p>This is the image provided for the challenge. Doing a reverse image search will return an overview by Google that it&rsquo;s located in Regensberg, Switzerland.</p>
+<p><img src="./smt-images/regensberg-1.png" alt="place"></p>
+<p>If you hate how AI is everywhere and wish it&rsquo;s not pushed down your throat this much (same tbh), don&rsquo;t worry, you can still solve this challenge without AI. On the Visual Match tab, you can find multiple images referencing the village of Regensberg.</p>
+<p><img src="./smt-images/regensberg-2.png" alt="place"></p>
+<p>Flag: SMT2025{regensberg}</p>
+<h2 id="online">Online</h2>
+<p>Description</p>
+<pre tabindex="0"><code>My friend found an interesting website online, but he hides the domain from me! Can you help me find it?
+
+Format: domain wrapped in SMT2025{ ... }
+Example: SMT2025{google.com}
+</code></pre><p>Given this image:</p>
+<p><img src="./smt-images/website.jpg" alt="website"></p>
+<p>This is a perfect opportunity to flex your Google Dorking muscles. My strategy here is to find a website that contains any unique string inside the table (I use Product Name and the t CO23/t thing), and its title being &ldquo;LCA Food Database&rdquo;. One of the queries can be something like this:</p>
+<pre tabindex="0"><code>&#34;Product Name&#34; &#34;t CO2e/t&#34; intitle:&#34;LCA Food Database&#34;
+</code></pre><p>Found the website that way, so flag: SMT2025{thebigclimatedatabase.com}</p>
+<h2 id="the-beauty-of-arrakis">The Beauty Of Arrakis</h2>
+<p>Description</p>
+<pre tabindex="0"><code>A mysterious Ethereum whale has moved tens of thousands of ETH over the years. One day, they transferred a huge amount of ETH in a single transaction. Find the transaction hash!
+
+Whale Wallet:
+0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+
+
+Flag format: SMT2025{transactionhash}
+</code></pre><p>This is where the challenges went 180 from your usual OSINT challenges to investigating cryptocurrency transaction. I search for a simple blockchain explorer and paste in the wallet address to find transaction history. This is how I found out that the wallet is mostly used for ETH (Ether) transactions and I should probably be using a dedicated scanner for the ETH blockchain for better and easier analysis.</p>
+<p><img src="./smt-images/eth-1.png" alt="wallet"></p>
+<p>I&rsquo;m using <a href="https://etherscan.io/">etherscan.io</a> to analyze the ETH wallet. They were NOT kidding about the whale status of this address. It&rsquo;s been used for years and it has thousands of transactions.</p>
+<p><img src="./smt-images/eth-2.png" alt="wallet"></p>
+<p>To solve this challenge in an efficient manner, you need to understand the key things you&rsquo;re asked to do:</p>
+<pre tabindex="0"><code>1. Wallet did a massive transfer (outgoing transcation) one day
+2. Find the transcation hash of that transfer
+</code></pre><p>We can filter for incoming/outgoing transaction, but it&rsquo;s still hard to scrape information because the wallet owner did a lot of incoming and outgoing transaction, both in massive amount of money. However, I noticed that the values of outgoing transactions are very small in comparison with incoming transactions. (I switched to <a href="https://oklink.com/">oklink.com</a> because it has more intuitive filtering technique for a newbie in blockchain analysis like me):</p>
+<p><img src="./smt-images/eth-3.png" alt="wallet"></p>
+<p>100,000 is just a lucky guess because it&rsquo;s a huge wallet so I suppose most of its transaction will exceed that. That&rsquo;s how I filter for &ldquo;huge transfers.&rdquo; Filtering for only <code>From &lt;address value&gt;</code> will filter for outgoing transaction, which will filter the transaction history even further, making it easier for us to search manually.</p>
+<p><img src="./smt-images/eth-4.png" alt="wallet"></p>
+<p>We got from 2K transactions, to 52, and then to only 29. At this point I found this particular <a href="https://www.oklink.com/ethereum/tx/0xc868d5bfd0ecf0492fecdb9bc897da0d20d8a3b19bc7843b1e1151349a6a5407">transaction.</a></p>
+<p>Flag: SMT2025{0xc868d5bfd0ecf0492fecdb9bc897da0d20d8a3b19bc7843b1e1151349a6a5407}</p>
+<h2 id="007---oreo">007 - OREO</h2>
+<p>Description</p>
+<pre tabindex="0"><code>Your agent in the field, known only as Mr. Oreo, has gone dark.
+
+Before disappearing, he left behind a clue, a digital breadcrumb hidden in plain sight. According to a tip received by our intelligence team, Mr. Oreo minted an NFT on the Sepolia testnet (Ethereum) earlier this July. Somewhere in that token lies the flag, a vital piece of information that could compromise an entire operation.
+
+Mr. Oreo&#39;s wallet:
+0xEDFfD5AEc7f8f1b9E112DD12C04507359A578d47
+
+No timestamp, no direct message, just this wallet and a trail of on-chain activity. Your mission is to investigate the wallet, identify any NFTs minted in July 2025, and recover the hidden flag.
+
+Mr. Oreo trusted that only the sharpest eyes would find his message. Don’t let him down.
+</code></pre><p>This might be intimidating for first timers, but the description really gave a lot of helpful hints. Let&rsquo;s break down the key things that help us:</p>
+<pre tabindex="0"><code>1. Mr Oreo minted an NFT on Sepolio test net chain
+2. The NFT was minted somewhere in July
+</code></pre><p>Using etherscan to scan the Sepolio test net, supplying the address, and filtering for NFT we got this information about the wallet:</p>
+<p><img src="./smt-images/nft-1.png" alt="nft"></p>
+<p>I searched everywhere, from the contract to its source code looking for a hint of a flag, but turns out the answer is on the transaction detail.</p>
+<p><img src="./smt-images/nft-2.png" alt="nft"></p>
+<p>Clicking on more detail will reveal an ipfs link that has the Token URI:</p>
+<p><img src="./smt-images/nft-3.png" alt="nft"></p>
+<p>There were 3 minting processes on the transaction, all three with different URI&rsquo;s. The second transaction will return this interesting json:</p>
+<pre tabindex="0"><code>{
+  &#34;name&#34;: &#34;Mr. Oreo 007&#34;,
+  &#34;description&#34;: &#34;Mr. Oreo — silent but clever.\nHey hacker, my CID: bafkreibwjrsqy36vy23typkpaaj4cf74dfwohhkgfqtadxljkffzf74ppm&#34;,
+  &#34;image&#34;: &#34;ipfs://bafybeibdyrgco64euwzygkyikx4k7ucxgj3volgwi3qfn3vfumvvxocssy&#34;,
+  &#34;attributes&#34;: [
+    {
+      &#34;trait_type&#34;: &#34;Alias&#34;,
+      &#34;value&#34;: &#34;Agent Oreo&#34;
+    },
+    {
+      &#34;trait_type&#34;: &#34;Mood&#34;,
+      &#34;value&#34;: &#34;Infiltrative&#34;
+    },
+    {
+      &#34;trait_type&#34;: &#34;Background&#34;,
+      &#34;value&#34;: &#34;Moonlight Shadows&#34;
+    },
+    {
+      &#34;trait_type&#34;: &#34;Gear&#34;,
+      &#34;value&#34;: &#34;Night Vision&#34;
+    }
+  ]
+}
+
+i visited this using ipfs.io/ipfs/&lt;CID&gt;
+</code></pre><p>If you visit the CID, you will find:</p>
+<pre tabindex="0"><code>{
+    &#34;Description&#34;: &#34;Congratulations! Your flag: SMT2025{blockchain_is_cool}&#34;
+}
+</code></pre><p>P.S Funny challenge, I solved this 10 minutes BEFORE it&rsquo;s due but whatever.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    <img class="about__logo" src="http://localhost:1313/images/me.png" alt="Logo">
+<h1 class="about__title">fidelyafr</h1>
+<p class="about__description">Woman in IT security or whatever from Indonesia</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/lindduncoding" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:fidelyafr@proton.me" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://orcid.org/0009-0008-8087-6200" rel="me" aria-label="ORCID" title="ORCID"><i class="ai ai-orcid" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            By Fidelya Fredelina, 
+            2025-08-14
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright"></p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

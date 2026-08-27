@@ -4,10 +4,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/ctfs/</loc>
-    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-08-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/ctfs/smt_2025/</loc>
+    <lastmod>2025-08-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/ctfs/htb_business_2025/</loc>
+    <lastmod>2025-05-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/ctfs/htb_cyber_apocalypse_2025/</loc>
     <lastmod>2025-03-30T00:00:00+00:00</lastmod>
