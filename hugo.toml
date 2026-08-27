@@ -28,7 +28,7 @@ title = "fidelyafr"
 description = "Woman in IT security or whatever from Indonesia"
 # unicode/emoji logo:
 # or use an image:
-logo_image = "images/me.png"
+logo_image = "static/me.png"
 
 # Sidebar: social links
 # Available icon sets:
