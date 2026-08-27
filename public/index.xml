@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>the fidelyafr experience</title>
+		<link>http://localhost:1313/</link>
+		<description>Recent content on the fidelyafr experience</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>HackTheBox Cyber Apocalypse 2025: Tales From Eldoria Write Up</title>
+				<link>http://localhost:1313/ctfs/htb_cyber_apocalypse_2025/</link>
+				<pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ctfs/htb_cyber_apocalypse_2025/</guid>
+				<description>&lt;h2 id=&#34;web-exploitation&#34;&gt;Web Exploitation&lt;/h2&gt;&#xA;&lt;h3 id=&#34;solvedvery-easy-trial-by-fire&#34;&gt;[SOLVED][very easy] Trial by Fire&lt;/h3&gt;&#xA;&lt;p&gt;Trial by Fire is a classic SSTI challenge. For those who are completely new to this, SSTI or Server-side Template Injection is a vulnerability in templating engine of a website that allows for arbitrary code execution. Like almost other web vulnerabilities, this is possible because user&amp;rsquo;s input is not sanitized.&lt;/p&gt;&#xA;&lt;p&gt;Template engines are used to have consistent UI for the frontend side of the web. It combines &lt;strong&gt;dynamic input&lt;/strong&gt; and the template to achieve that. For example, in this challenge, the website first ask for a name that will be rendered on the next page:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>About</title>
+				<link>http://localhost:1313/about/</link>
+				<pubDate>Sun, 30 May 2004 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/about/</guid>
+				<description>&lt;p&gt;Fidelya Fredelina, also known online as &lt;em&gt;fidelyafr&lt;/em&gt; (and many other usernames she will NOT disclose) is an Indonesian IT enthusiast whose interest spans multiple domains from &lt;strong&gt;data&lt;/strong&gt;, &lt;strong&gt;network&lt;/strong&gt;, &lt;strong&gt;security&lt;/strong&gt; and recently, &lt;strong&gt;wireless engineering.&lt;/strong&gt; She will touch anything as long as it&amp;rsquo;s not software engineering.&lt;/p&gt;&#xA;&lt;p&gt;She dreams of leaving the country and pursue a Master&amp;rsquo;s (possibly also a PhD) degree somewhere in Europe to continue her research in IoT and wireless security. She&amp;rsquo;s open to any odd IT (and to some extend electronics) job as long as it&amp;rsquo;s &lt;em&gt;fun&lt;/em&gt; and &amp;ldquo;technically challenging&amp;rdquo; enough. Have a job opening? PLEASE email her asap.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
