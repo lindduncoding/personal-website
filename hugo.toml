@@ -1,4 +1,4 @@
-baseURL = 'http://fidelyafr.fyi'
+baseURL = 'http://fidelyafr.fyi/'
 locale = 'en-us'
 title = 'the fidelyafr experience'
 theme = 'risotto'
@@ -28,7 +28,7 @@ title = "fidelyafr"
 description = "Woman in IT security or whatever from Indonesia"
 # unicode/emoji logo:
 # or use an image:
-logo_image = "static/me.png"
+logo_image = "me.png"
 
 # Sidebar: social links
 # Available icon sets:
