@@ -1,9 +1,8 @@
-baseURL = 'http://fidelyafr.fyi/'
+baseURL = 'http://fidelyafr.fyi'
 locale = 'en-us'
 title = 'the fidelyafr experience'
 theme = 'risotto'
 author = "Fidelya Fredelina"
-# copyright = "© [Joe Roe](https://joeroe.io) & [risotto contributors](https://github.com/joeroe/risotto/graphs/contributors)."
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 # prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
