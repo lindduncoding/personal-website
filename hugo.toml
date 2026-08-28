@@ -19,7 +19,7 @@ pagerSize = 3
 noindex = false
 
 [params.theme]
-palette = "base16-dark"
+palette = "tokyo-night-dark"
 
 # Sidebar: about/bio
 [params.about]
@@ -49,6 +49,11 @@ icon = "ai ai-orcid"
 title = "ORCID"
 url = "https://orcid.org/0009-0008-8087-6200"
 
+[[params.socialLinks]]
+icon = "fa-solid fa-square-rss"
+title = "RSS"
+url = "/index.xml"
+
 [menu]
 
   [[menu.main]]
@@ -61,6 +66,18 @@ url = "https://orcid.org/0009-0008-8087-6200"
     identifier = "ctf"
     name = "CTF Write-Ups"
     url = "/ctf/"
+    weight = 10
+
+  [[menu.project]]
+    identifier = "project"
+    name = "IT Projects"
+    url = "/project/"
+    weight = 10
+
+  [[menu.cv]]
+    identifier = "cv"
+    name = "My CV"
+    url = "/cv/"
     weight = 10
 
 [taxonomies]

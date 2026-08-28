@@ -3,6 +3,7 @@ title = "HackTheBox Cyber Apocalypse 2025: Tales From Eldoria Write Up"
 date = "2025-03-30"
 aliases = ["ctf"]
 author = "Fidelya Fredelina"
+toc = true
 +++
 
 ## Web Exploitation

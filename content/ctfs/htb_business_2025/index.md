@@ -3,6 +3,7 @@ title = "HackTheBox Business CTF Cyber Skills Benchmart 2025: Operation Blackout
 date = "2025-05-24"
 aliases = ["ctf"]
 author = "Fidelya Fredelina"
+toc = true
 +++
 
 ## Cloud

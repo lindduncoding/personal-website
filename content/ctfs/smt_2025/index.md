@@ -3,13 +3,14 @@ title = "SMT Program 2025: Various Write Up"
 date = "2025-08-14"
 aliases = ["ctf"]
 author = "Fidelya Fredelina"
+toc = true
 +++
 
 I have so many things I want to say about this program and how it affected me down the line but I want to keep this section professional, so here are the write ups:
 
-# Malware
+## Malware
 
-## Static
+### Static
 
 Description
 
@@ -50,7 +51,7 @@ Congrats! 4 out of 4 answers correct!
 Flag: SMT2025{us3_v1rus_t0t4l_4_1niti4l_4nalys1s}
 ```
 
-## Macro 1
+### Macro 1
 
 Description
 
@@ -78,7 +79,7 @@ End Sub
 
 You can also use olevba to analyze the macro.
 
-## Macro 2
+### Macro 2
 
 Description
 
@@ -211,7 +212,7 @@ The assembly uses a lot of `compare` instructions to compare the input from the 
 SMT2025{y0u_g0t_m3}
 ```
 
-## Strange PDF
+### Strange PDF
 
 Description
 
@@ -312,9 +313,9 @@ fred@fedora:~/Documents/SMT $ node test.js
 SMT2025{r0bux_g0n3_r0bl0x_4cc0unt_4l5o_g0n3}
 ```
 
-# Crypto
+## Crypto
 
-## welcome
+### welcome
 Description
 ``` 
 This message has been... encoded? encrypted? Whatever that is... Anyways, can you read it?
@@ -334,7 +335,7 @@ But we know the flag starts with the usual 'SMT2025' string, so RLS2025 is just 
 SMT2025{w3lcom3_t0_th3_crypt0_w0rld!}
 ```
 
-## eAESy
+### eAESy
 
 Description
 ```
@@ -422,7 +423,7 @@ print(plaintext.decode())
 # output: SMT2025{3ncrypt1on_4nd_d3crypt1on}
 ```
 
-## rsaaaaaaaaaa
+### rsaaaaaaaaaa
 
 Description
 ```
@@ -487,7 +488,7 @@ STR : b'\x00\x00\x00\x00\x00\x00\x00\x00SMT2025{sm4ll_pr1m3_b4d}'
 
 TL;DR don't use a comically small prime, someone's probably uploaded that to factordb.
 
-## birthday
+### birthday
 
 Description
 ```
@@ -600,9 +601,9 @@ String 1:
 
 This script runs almost on a instant for me.
 
-# OS
+## OS
 
-## Out of Sight
+### Out of Sight
 
 Description:
 
@@ -643,7 +644,7 @@ cat .flag.txt
 SMT2025{hidden_permission_flag}
 ```
 
-## Random Cities
+### Random Cities
 
 ```
 Your objective exists among executables.
@@ -687,7 +688,7 @@ SMT2025{congratzzzzzz}
 ctf@1fee2ffd73bd:~$ 
 ```
 
-## Kecleon
+### Kecleon
 
 ```
 It looks like a regular spreadsheet, but can you find what’s hidden beneath the surface?
@@ -749,7 +750,7 @@ Content of sharedStrings.xml:
 
 Alternatively, you can use grep with the -r option to find the SMT pattern in the current directory (.) or other directories. The sharedStrings.xml is a structure to contain all string data of the Open Office format, so it's often used to hide data. 
 
-## Scheduler Shenanigans
+### Scheduler Shenanigans
 
 Description:
 
@@ -845,9 +846,9 @@ while true {
 }
 ```
 
-# OSINT
+## OSINT
 
-## Place
+### Place
 
 Description
 
@@ -870,7 +871,7 @@ If you hate how AI is everywhere and wish it's not pushed down your throat this 
 
 Flag: SMT2025{regensberg}
 
-## Online
+### Online
 
 Description
 
@@ -893,7 +894,7 @@ This is a perfect opportunity to flex your Google Dorking muscles. My strategy h
 
 Found the website that way, so flag: SMT2025{thebigclimatedatabase.com}
 
-## The Beauty Of Arrakis
+### The Beauty Of Arrakis
 
 Description
 
@@ -934,7 +935,7 @@ We got from 2K transactions, to 52, and then to only 29. At this point I found t
 
 Flag: SMT2025{0xc868d5bfd0ecf0492fecdb9bc897da0d20d8a3b19bc7843b1e1151349a6a5407}
 
-## 007 - OREO
+### 007 - OREO
 
 Description
 
