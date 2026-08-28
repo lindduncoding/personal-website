@@ -2,6 +2,8 @@
 date = '2026-08-28T10:09:53+07:00'
 draft = false
 title = 'Hello World from fidelyafr.fyi!'
+toc = true
+description = "Having your own personal website as an IT student is very crucial, especially to show your projects and stuffs like that"
 +++
 
 ## After 4 years of studying...
