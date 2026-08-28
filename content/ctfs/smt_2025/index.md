@@ -6,8 +6,6 @@ author = "Fidelya Fredelina"
 toc = true
 +++
 
-I have so many things I want to say about this program and how it affected me down the line but I want to keep this section professional, so here are the write ups:
-
 ## Malware
 
 ### Static

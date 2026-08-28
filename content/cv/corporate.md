@@ -1,6 +1,6 @@
 +++
 title = "Corporate CV"
-description = "However, academia won't be enough for a living in this economy. So, here's my corporate CV for capitalistic purposes"
+description = "However, staying in school takes a long long time. So, here's my corporate CV for corporate purposes"
 toc = true
 +++
 

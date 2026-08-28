@@ -12,13 +12,12 @@ She obtained her Bachelor's in Engineering from [Universitas Gadjah Mada](https:
 
 She dreams of leaving the country and pursue a Master's (possibly also a PhD) degree somewhere in Europe to continue her research in IoT and wireless security. She's open to any odd IT (and to some extend electronics) job as long as it's _fun_ and "technically challenging" enough. Have a job opening? PLEASE email her asap. 
 
-Not all serious and ambitious, she makes music in her free time. Check that out [here](https://sxwvn.github.io). 
+Not all serious and ambitious, she makes music in her free time. Check that out [here](https://sxwvn.github.io). Her favorite artist is [STARSET](https://www.starsetonline.com/) and their third studio album [DIVISIONS](https://open.spotify.com/album/3mptvwc49sVgmxP5xIv7UN) has a special place in her heart. It makes no sense that she listens to cinematic rock, metal, and indie-rock but produces video game music. Oh well, I guess that's what happens when you grow up playing UNDERTALE and DELTARUNE.
 
 If you make it this far might as well read her stances on things:
 
-# My Stances (ranked from most normal to radical)
+# My Stances
 
 1. Palestine should be free 🇵🇸
-2. No discrimination based on religion, race, gender, sexuality, ethnicity (you know the drill, don't be a d*ck)
+2. No discrimination based on religion, race, gender, sex, sexuality, ethnicity (you know the drill, don't be a d*ck)
 3. Information should be freely accessible
-4. Borders shouldn't exist
