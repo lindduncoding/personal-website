@@ -1,4 +1,4 @@
-baseURL = 'http://fidelyafr.fyi'
+baseURL = 'https://fidelyafr.fyi'
 locale = 'en-us'
 title = 'the fidelyafr experience'
 theme = 'risotto-change'
