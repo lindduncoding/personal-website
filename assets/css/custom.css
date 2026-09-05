@@ -54,6 +54,32 @@
     outline-offset: 3px;
 }
 
+.likert-form input[type="text"] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--inner-bg);
+    border-left: 3px solid var(--muted);
+    border-radius: 0;
+    background: var(--off-bg);
+    color: var(--fg);
+    font: inherit;
+}
+
+.likert-form input[type="text"]::placeholder {
+    color: var(--muted);
+    opacity: 1;
+}
+
+.likert-form input[type="text"]:focus {
+    border-color: var(--link);
+    border-left-color: var(--highlight);
+    outline: 2px solid var(--highlight);
+    outline-offset: 2px;
+}
+
 .likert-form button {
     margin: 0 0 1rem;
     padding: 0.65rem 1rem;

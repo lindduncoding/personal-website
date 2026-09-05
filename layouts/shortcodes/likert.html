@@ -3,6 +3,7 @@
 <form class="likert-form" action="{{ $endpoint }}" method="post">
   {{ .Inner }}
 
+  <input type="text" name="token" placeholder="tokennya apa maniez" aria-required>
   <input type="hidden" name="score-phq" class="phq-score">
   <input type="hidden" name="score-gad" class="gad-score">
 
@@ -11,7 +12,14 @@
 </form>
 
 <script>
+  const STORAGE_KEY = 'tls-submitted';
+
   document.querySelectorAll('.likert-form').forEach((form) => {
+    if (localStorage.getItem(STORAGE_KEY)) {
+      form.innerHTML = '<p>Terima kasih sudah men-submit dengan jujur :D</p>';
+      return;
+    }
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -66,12 +74,22 @@
 
       button.disabled = true;
       try {
-        await fetch(form.action, {
+        const response = await fetch(form.action, {
           method: 'POST',
-          mode: 'no-cors',
+          // mode: 'no-cors',
           body: new FormData(form)
         });
-        result.textContent += ' Your result was saved.';
+
+        const data = await response.json();
+        console.log(data)
+
+        if (data.ok){
+          localStorage.setItem(STORAGE_KEY, '1');
+          result.textContent += ' Your result was saved.';
+        } else {
+          result.textContent += ' Your result was not saved';
+        }
+
       } catch (error) {
         result.textContent += ' Your result could not be saved.';
       }
