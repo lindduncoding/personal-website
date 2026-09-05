@@ -1,0 +1,80 @@
+{{ $endpoint := .Get "endpoint" }}
+
+<form class="likert-form" action="{{ $endpoint }}" method="post">
+  {{ .Inner }}
+
+  <input type="hidden" name="score-phq" class="phq-score">
+  <input type="hidden" name="score-gad" class="gad-score">
+
+  <button type="submit">Calculate score</button>
+  <p class="likert-result" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  document.querySelectorAll('.likert-form').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const phqQuestions = [...form.querySelectorAll('fieldset[name="phq"]')];
+      const gadQuestions = [...form.querySelectorAll('fieldset[name="gad"]')];
+      const button = form.querySelector('button[type="submit"]');
+      const result = form.querySelector('.likert-result');
+      let pScore = 0;
+      let gScore = 0;
+
+      for (const question of phqQuestions) {
+        const options = [...question.querySelectorAll('input[type="radio"]')];
+        const selected = options.find((option) => option.checked);
+
+        if (!selected) {
+          question.querySelector('input[type="radio"]')?.focus();
+          result.textContent = 'Please answer every question.';
+          return;
+        }
+
+        pScore += options.indexOf(selected);
+      }
+
+      for (const question of gadQuestions) {
+        const options = [...question.querySelectorAll('input[type="radio"]')];
+        const selected = options.find((option) => option.checked);
+
+        if (!selected) {
+          question.querySelector('input[type="radio"]')?.focus();
+          result.textContent = 'Please answer every question.';
+          return;
+        }
+
+        gScore += options.indexOf(selected);
+      }
+
+      form.querySelector('.phq-score').value = pScore;
+      result.textContent +=
+        `Your PHQ-9 score is ${pScore} out of ${phqQuestions.length * 3}.`;
+
+      if (pScore > 20) {
+        result.textContent += ` Maybe seek help?`
+      }
+
+      form.querySelector('.gad-score').value = gScore;
+      result.textContent +=
+        ` And your GAD-7 score is ${gScore} out of ${gadQuestions.length * 3}.`;
+
+      if (gScore > 15) {
+        result.textContent += ` Maybe seek help?`
+      }
+
+      button.disabled = true;
+      try {
+        await fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new FormData(form)
+        });
+        result.textContent += ' Your result was saved.';
+      } catch (error) {
+        result.textContent += ' Your result could not be saved.';
+      }
+    });
+  });
+</script>
