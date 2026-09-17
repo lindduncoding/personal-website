@@ -1,14 +1,14 @@
 +++
-date = '2026-09-05T10:09:53+07:00'
+date = '2026-09-17T10:09:53+07:00'
 draft = false
-title = 'TLS 2026 Mental Health Survey'
+title = 'Posbindu Mental Health Survey'
 toc = false
 description = "By using this functionality you agree to send your mental health status to my Google Drive."
 +++
 
 Selama dua minggu terakhir, seberapa sering anda mengalami masalah berikut?
 
-{{< likert endpoint="https://script.google.com/macros/s/AKfycbxhEAj6Cq6xnehmbThdzdtHxrZt0OofLdL-bm7vQUY2wT7Sqj2O7xH_L_OQUhgL3g7K/exec" >}}
+{{< likert endpoint="https://script.google.com/macros/s/AKfycbwbJ5Ozlw-6Y0j9f2sbDi6fEr5KXspA-httVijIgStbA2V01tJUeOw6gX6_yia1RNZU/exec" >}}
 
 <fieldset name="phq">
   <legend>Kurang tertarik atau kurang bergairah dalam melakukan apapun.</legend>

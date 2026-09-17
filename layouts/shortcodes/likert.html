@@ -1,6 +1,7 @@
 {{ $endpoint := .Get "endpoint" }}
 
 <form class="likert-form" action="{{ $endpoint }}" method="post">
+  <input type="text" name="age" placeholder="Umur" aria-required>
   {{ .Inner }}
 
   <input type="text" name="token" placeholder="tokennya apa maniez" aria-required>
@@ -12,7 +13,7 @@
 </form>
 
 <script>
-  const STORAGE_KEY = 'tls-submitted';
+  const STORAGE_KEY = 'posbindu-submitted';
 
   document.querySelectorAll('.likert-form').forEach((form) => {
     if (localStorage.getItem(STORAGE_KEY)) {
@@ -58,18 +59,18 @@
 
       form.querySelector('.phq-score').value = pScore;
       result.textContent +=
-        `Your PHQ-9 score is ${pScore} out of ${phqQuestions.length * 3}.`;
+        `Skor PHQ-9 Anda adalah ${pScore} dari ${phqQuestions.length * 3}.`;
 
       if (pScore > 20) {
-        result.textContent += ` Maybe seek help?`
+        result.textContent += ` Mungkin bisa ke psikolog?`
       }
 
       form.querySelector('.gad-score').value = gScore;
       result.textContent +=
-        ` And your GAD-7 score is ${gScore} out of ${gadQuestions.length * 3}.`;
+        ` Dan skor GAD-7 Anda adalah ${gScore} dari ${gadQuestions.length * 3}.`;
 
       if (gScore > 15) {
-        result.textContent += ` Maybe seek help?`
+        result.textContent += ` Mungkin bisa ke psikolog?`
       }
 
       button.disabled = true;
@@ -85,13 +86,13 @@
 
         if (data.ok){
           localStorage.setItem(STORAGE_KEY, '1');
-          result.textContent += ' Your result was saved.';
+          result.textContent += ' Data berhasil disimpan!';
         } else {
-          result.textContent += ' Your result was not saved';
+          result.textContent += ' Data tidak berhasil disimpan!';
         }
 
       } catch (error) {
-        result.textContent += ' Your result could not be saved.';
+        result.textContent += ' Ada yang eror :(';
       }
     });
   });
