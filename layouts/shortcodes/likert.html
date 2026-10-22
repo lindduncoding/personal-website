@@ -1,10 +1,10 @@
 {{ $endpoint := .Get "endpoint" }}
 
 <form class="likert-form" action="{{ $endpoint }}" method="post">
-  <input type="text" name="age" placeholder="Umur" aria-required>
+  <input type="text" name="age" placeholder="Umur" required>
   {{ .Inner }}
 
-  <input type="text" name="token" placeholder="tokennya apa maniez" aria-required>
+  <input type="text" name="token" placeholder="tokennya apa maniez" required>
   <input type="hidden" name="score-phq" class="phq-score">
   <input type="hidden" name="score-gad" class="gad-score">
 
@@ -13,7 +13,7 @@
 </form>
 
 <script>
-  const STORAGE_KEY = 'posbindu-submitted';
+  const STORAGE_KEY = 'SG-submitted';
 
   document.querySelectorAll('.likert-form').forEach((form) => {
     if (localStorage.getItem(STORAGE_KEY)) {
